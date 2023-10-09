@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scitc.blogend.mapper.ArticlesMapper">
+
+    <resultMap id="BaseResultMap" type="com.scitc.blogend.entity.Articles">
+            <id property="articlesId" column="articles_id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="tag" column="tag" jdbcType="VARCHAR"/>
+            <result property="classification" column="classification" jdbcType="VARCHAR"/>
+            <result property="lastModifiedDate" column="last_modified_date" jdbcType="VARCHAR"/>
+            <result property="abstracts" column="abstracts" jdbcType="VARCHAR"/>
+            <result property="recycleBinState" column="recycle_bin_state" jdbcType="INTEGER"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        articles_id,title,tag,
+        classification,last_modified_date,abstracts,
+        recycle_bin_state,url
+    </sql>
+    <update id="updateArticleRecycleBinState">
+        update articles set recycle_bin_state = #{state} where articles_id = #{articleid}
+    </update>
+    <update id="updateArticleClassify">
+        update articles set classification = #{newClassify} where classification = #{oldClassify};
+    </update>
+    <select id="getAllArticles" resultType="com.scitc.blogend.entity.DTO.ArticleListDTO">
+        SELECT articles_id, title, tag, classification, last_modified_date, abstracts FROM articles WHERE recycle_bin_state = 0 order by last_modified_date desc
+    </select>
+    <select id="getArticlesInTrash" resultType="com.scitc.blogend.entity.DTO.ArticleListDTO">
+        select articles_id, title, tag, classification, last_modified_date, abstracts from articles where recycle_bin_state = 1
+    </select>
+    <select id="getNewestArticles" resultType="com.scitc.blogend.entity.DTO.ArticleListDTO">
+        select articles_id, title, tag, classification, last_modified_date, abstracts from articles order by last_modified_date desc limit #{number}
+    </select>
+    <select id="getArticlesByClassfiy" resultType="com.scitc.blogend.entity.DTO.ArticleListDTO">
+        select articles_id, title, tag, classification, last_modified_date, abstracts from articles where classification = #{classify} and recycle_bin_state = 0
+    </select>
+    <select id="getArticlesByClassfiyFullInfo" resultType="com.scitc.blogend.entity.Articles">
+        select * from articles where classification = #{classify}
+    </select>
+
+
+</mapper>

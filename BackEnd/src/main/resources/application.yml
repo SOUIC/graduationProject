@@ -1,0 +1,8 @@
+server:
+  port: 8060
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.109.23.86:3306/blogs
+    username: blogs
+    password: NXmym2zBTMnfnsf6

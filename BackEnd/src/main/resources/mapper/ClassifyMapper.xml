@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scitc.blogend.mapper.ClassifyMapper">
+
+    <resultMap id="BaseResultMap" type="com.scitc.blogend.entity.Classify">
+            <id property="classifyId" column="classify_id" jdbcType="INTEGER"/>
+            <result property="classify" column="classify" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        classify_id,classify
+    </sql>
+    <select id="getAllClassify" resultType="com.scitc.blogend.entity.Classify">
+        select * from classify
+    </select>
+    <select id="verifyClassify" resultType="java.lang.Integer">
+        select count(*) from classify where classify = #{classify}
+    </select>
+</mapper>

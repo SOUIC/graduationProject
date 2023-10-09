@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scitc.blogend.mapper.LogMapper">
+
+    <resultMap id="BaseResultMap" type="com.scitc.blogend.entity.Log">
+            <result property="time" column="time" jdbcType="VARCHAR"/>
+            <result property="operatingContent" column="operating_content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        time,operating_content
+    </sql>
+    <select id="getAllLogs" resultType="com.scitc.blogend.entity.Log">
+        select * from log order by time desc
+    </select>
+</mapper>

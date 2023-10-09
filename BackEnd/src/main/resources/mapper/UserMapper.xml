@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scitc.blogend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.scitc.blogend.entity.User">
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="headUrl" column="head_url" jdbcType="VARCHAR"/>
+            <result property="constructionTime" column="construction_time" jdbcType="VARCHAR"/>
+            <result property="announcement" column="announcement" jdbcType="VARCHAR"/>
+            <result property="visitorVolume" column="visitor_Volume" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_name,password,email,
+        head_url,construction_time,announcement,
+        visitor_Volume
+    </sql>
+    <update id="updateUserInfo">
+        update user set user_name = #{username}, password = #{password}, email = #{email}, announcement = #{announcement};
+    </update>
+    <update id="updateVisitorVolume">
+        update user set visitor_Volume = #{num}
+    </update>
+    <update id="updatePicture">
+        update  user set head_url = #{url};
+    </update>
+    <select id="getPassword" resultType="java.lang.String">
+        select password from user where user_name = #{username}
+    </select>
+    <select id="getUserInfo" resultType="com.scitc.blogend.entity.User">
+        select * from user limit 1;
+    </select>
+    <select id="getArticlesCnt" resultType="java.lang.Long">
+        select count(*) from articles
+    </select>
+
+</mapper>
